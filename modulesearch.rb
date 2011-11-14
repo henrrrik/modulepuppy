@@ -45,6 +45,8 @@ end
 
 get '/refresh' do
 
+  Project.delete_all
+
   doc = Nokogiri::XML(open("http://updates.drupal.org/release-history/project-list/all"))
 
   doc.xpath('/projects/project').each do |node|
@@ -61,5 +63,19 @@ get '/refresh' do
   '.. done!'
 end
 
+get '/module/:short_name.:format' do
+  project = Project.find(params[:short_name])
+  case params[:format]
+  when 'xml'
+    content_type :xml
+    project.to_xml
+  when 'json'
+    content_type('application/json')
+    project.to_json
+  else
+    content_type :json
+    project.to_json
+  end
+end
 
 
