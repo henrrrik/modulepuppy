@@ -1,6 +1,7 @@
 #Module Puppy
 
-Module Puppy is a simple API for finding Drupal modules.
+Module Puppy is a simple API for finding Drupal modules. We use it with
+[Hubot](http://hubot.github.com).
 
 ##Examples:
 
