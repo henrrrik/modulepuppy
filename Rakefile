@@ -27,3 +27,6 @@ task :refresh do
   puts 'All done!'
 end
 
+task :cron => [:refresh] do
+  puts "Cron done!"
+end
