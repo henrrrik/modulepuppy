@@ -4,7 +4,10 @@ require 'active_record'
 require 'open-uri'
 require 'uri'
 require 'nokogiri'
+require 'texticle/searchable'
 
+
+ActiveRecord::Base.extend(Texticle)
 
 configure do
   db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/modulesearch')
@@ -35,6 +38,8 @@ end
 
 class Project < ActiveRecord::Base
   validates_uniqueness_of :short_name
+
+  extend Searchable(:short_name, :title)
 end
 
 
@@ -63,8 +68,34 @@ get '/refresh' do
   '.. done!'
 end
 
-get '/module/:short_name.:format' do
-  project = Project.find(params[:short_name])
+get '/module/:name.:format' do
+
+  unless params[:name] and params[:format] 
+    throw :halt, [400, 'Bad Request']
+  end
+
+  project = Project.find_by_short_name(params[:name])
+
+  case params[:format]
+  when 'xml'
+    content_type :xml
+    project.to_xml
+  when 'json'
+    content_type('application/json')
+    project.to_json
+  else
+    content_type :json
+    project.to_json
+  end
+end
+
+get '/search.:format' do
+
+  unless params[:query]
+    throw :halt, [400, 'Bad Request']
+  end
+
+  project = Project.search params[:query]
   case params[:format]
   when 'xml'
     content_type :xml
