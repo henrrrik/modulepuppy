@@ -1,3 +1,3 @@
-require './modulesearch'
+require './modulepuppy'
 run Sinatra::Application
 

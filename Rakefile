@@ -1,5 +1,5 @@
 # require your app file first
-require './modulesearch'
+require './modulepuppy'
 require 'sinatra/activerecord/rake'
 
 task :refresh do

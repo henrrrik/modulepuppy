@@ -44,7 +44,7 @@ end
 
 
 get '/' do
-  'Hello world!'
+  erb :index
 end
 
 
@@ -97,9 +97,9 @@ get '/search.:format' do
 
   project = Project.search params[:query]
   case params[:format]
-  when 'xml'
-    content_type :xml
-    project.to_xml
+  #when 'xml'
+  #  content_type :xml
+  #  project.to_xml
   when 'json'
     content_type('application/json')
     project.to_json
