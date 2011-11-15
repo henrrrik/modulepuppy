@@ -48,26 +48,6 @@ get '/' do
 end
 
 
-get '/refresh' do
-
-  Project.delete_all
-
-  doc = Nokogiri::XML(open("http://updates.drupal.org/release-history/project-list/all"))
-
-  doc.xpath('/projects/project').each do |node|
-
-    unless node.xpath('published').text == 'unpublished'
-      Project.create ({:short_name => node.xpath('short_name').text,
-                      :title => node.xpath('title').text,
-                      :link => node.xpath('link').text,
-                      :creator => node.xpath('dc:creator').text
-      })
-    end
-  end
-
-  '.. done!'
-end
-
 get '/module/:name.:format' do
 
   unless params[:name] and params[:format] 
