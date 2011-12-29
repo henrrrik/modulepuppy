@@ -3,6 +3,8 @@
 Module Puppy is a simple API for finding Drupal modules. We use it with
 [Hubot](http://hubot.github.com).
 
+Data is grabbed from http://updates.drupal.org/release-history/project-list/all
+
 ##Examples:
 
     /search.json?query=something
