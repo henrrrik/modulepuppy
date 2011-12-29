@@ -50,43 +50,24 @@ end
 
 get '/module/:name.:format' do
 
-  unless params[:name] and params[:format] 
+  unless params[:name] and params[:format]
     throw :halt, [400, 'Bad Request']
   end
 
   project = Project.find_by_short_name(params[:name])
-
-  case params[:format]
-  when 'xml'
-    content_type :xml
-    project.to_xml
-  when 'json'
-    content_type('application/json')
-    project.to_json
-  else
-    content_type :json
-    project.to_json
-  end
+  content_type :json
+  project.to_json(only: [:creator, :link, :short_name, :title])
 end
 
 get '/search.:format' do
 
-  unless params[:query]
+  unless params[:query] and params[:format]
     throw :halt, [400, 'Bad Request']
   end
 
   project = Project.search params[:query]
-  case params[:format]
-  #when 'xml'
-  #  content_type :xml
-  #  project.to_xml
-  when 'json'
-    content_type('application/json')
-    project.to_json
-  else
-    content_type :json
-    project.to_json
-  end
+  content_type :json
+  project.to_json(only: [:creator, :link, :short_name, :title])
 end
 
 
