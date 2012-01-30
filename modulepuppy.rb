@@ -1,8 +1,6 @@
 require 'rubygems'
 require 'sinatra'
 require 'active_record'
-require 'open-uri'
-require 'uri'
 require 'nokogiri'
 require 'texticle/searchable'
 
@@ -71,3 +69,46 @@ get '/search.:format' do
 end
 
 
+get '/' do
+  erb :index
+end
+
+__END__
+
+@@ index
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>module puppy</title>
+  </head>
+  <body>
+    <pre>
+                       __
+                     .'  `.
+                 _.-'/  |  \/-._
+    ,        _.-"  ,|  /  a `-._'-._
+    |\    .-"       `--""-.__.' '-._'-._
+    \ `-'`        .___.--._)========'-._]
+     \            .'      |             |
+      |     /,_.-'        |             |
+    _/   _.'(             |             |
+   /  ,-' \  \            |             |
+   \  \    `-'            |             |
+    `-'              jgs  '-------------'
+
+
+    Module Puppy is a simple API for finding Drupal modules.
+
+    Examples:
+
+    /search.json?query=something
+    /module/modulename.json
+
+
+    --------------------------------------
+    (c) <%=Time.now.year %> <a href="http://henriksjokvist.net/">Henrik Sjökvist</a> - <a href="https://github.com/henrrrik/modulepuppy">View source</a>
+
+    </pre>
+  </body>
+</html>
