@@ -3,6 +3,7 @@ require 'sinatra'
 require 'active_record'
 require 'nokogiri'
 require 'open-uri'
+require 'uri'
 require 'texticle/searchable'
 
 
