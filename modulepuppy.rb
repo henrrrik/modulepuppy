@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'active_record'
 require 'nokogiri'
+require 'open-uri'
 require 'texticle/searchable'
 
 
